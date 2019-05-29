@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Time } from '@angular/common';
+import { MockFlightDetailsService, FlightDetailsService } from './flight-details.service';
+import {Arrival, Departure} from './flight-details.service';
 
 @Component({
   selector: 'app-root',
@@ -10,8 +12,13 @@ export class AppComponent {
   
   arrivals: Arrival[];
   departures: Departure[];
+  flightDetailsService: FlightDetailsService;
 
-  constructor() {
+  constructor(
+    private mockFlightDetailsService: MockFlightDetailsService
+  ) {
+    this.flightDetailsService = mockFlightDetailsService;
+
     this.arrivals = [
       new Arrival("Turkey", new DisplayableTime(10, 55), 10),
       new Arrival("Lisbon", new DisplayableTime(10, 30), 14),
@@ -26,27 +33,7 @@ export class AppComponent {
 
 }
 
-class Arrival {
-
-  constructor(
-    public from: string,
-    public arrivalTime: Time,
-    public gate: number
-  ) {}
-
-}
-
-class Departure {
-
-  constructor(
-    public to: string,
-    public departureTime: Time,
-    public gate: number
-  ) {}
-
-}
-
-class DisplayableTime
+export class DisplayableTime
   implements Time {
 
   constructor(

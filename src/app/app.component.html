@@ -14,7 +14,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let arrival of arrivals">
+            <tr *ngFor="let arrival of flightDetailsService.getArrivals()">
               <td>{{arrival.from}}</td>
               <td>Gate {{arrival.gate}}</td>
               <td>{{arrival.arrivalTime}}</td>
@@ -41,7 +41,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let departure of departures">
+              <tr *ngFor="let departure of flightDetailsService.getDepartures()">
                 <td>{{departure.to}}</td>
                 <td>Gate {{departure.gate}}</td>
                 <td>{{departure.departureTime}}</td>
