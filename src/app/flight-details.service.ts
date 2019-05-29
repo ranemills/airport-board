@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { DisplayableTime } from './app.component';
 
+import {take} from 'rxjs/operators';  
+import {timer} from 'rxjs';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -11,6 +14,7 @@ export class MockFlightDetailsService implements FlightDetailsService {
 
   private readonly destinations: string[] = ["Lisbon", "London", "Istanbul"];
   private readonly numGates: number = 15;
+  private readonly pollingInterval = 5000; // 5 seconds
 
   constructor() {
     this.arrivals = [
@@ -27,6 +31,9 @@ export class MockFlightDetailsService implements FlightDetailsService {
       this.getRandomDeparture(),
       this.getRandomDeparture()
     ];
+
+    // This is the thing that sets off the polling - maybe this should be in the component
+    timer(1000, this.pollingInterval).subscribe(() => this.refresh())
   }
 
   getDepartures(): Departure[] {
@@ -38,9 +45,9 @@ export class MockFlightDetailsService implements FlightDetailsService {
   }
 
   refresh(): void {
-    this.arrivals.pop();
+    this.arrivals.shift();
     this.arrivals.push(this.getRandomArrival());
-    this.departures.pop();
+    this.departures.shift();
     this.departures.push(this.getRandomDeparture());
   }
 
@@ -66,11 +73,11 @@ export class MockFlightDetailsService implements FlightDetailsService {
   }
 
   private getRandomTime(): DisplayableTime {
-    return new DisplayableTime(10, 33);
+    return new DisplayableTime(this.getRandomInt(24), this.getRandomInt(60));
   }
 
   private getRandomInt(max: number): number {
-    return Math.floor(Math.random()*max);
+    return Math.round(Math.random()*max);
   }
 
 
