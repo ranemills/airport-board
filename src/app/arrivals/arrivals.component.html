@@ -1,0 +1,21 @@
+<div class="card">
+  <div class="card-header text-center">Arrivals</div>
+  <div class="card-body">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Destination</th>
+          <th>Gate</th>
+          <th>Time of Arrival</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let arrival of arrivals">
+          <td>{{arrival.from}}</td>
+          <td>Gate {{arrival.gate}}</td>
+          <td>{{arrival.arrivalTime}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
-import { DisplayableTime } from './app.component';
+import { DisplayableTime } from './models/displayable-time';
 
-import {take} from 'rxjs/operators';  
+import {Arrival} from './models/arrival';
+import {Departure} from './models/departure';
+
 import {timer} from 'rxjs';
 
 @Injectable({
@@ -12,7 +14,7 @@ export class MockFlightDetailsService implements FlightDetailsService {
   arrivals: Arrival[];
   departures: Departure[];
 
-  private readonly destinations: string[] = ["Lisbon", "London", "Istanbul"];
+  private readonly destinations: string[] = ["Lisbon", "London", "Istanbul", "Constantinople", "Miami"];
   private readonly numGates: number = 15;
   private readonly pollingInterval = 5000; // 5 seconds
 
@@ -32,16 +34,16 @@ export class MockFlightDetailsService implements FlightDetailsService {
       this.getRandomDeparture()
     ];
 
-    // This is the thing that sets off the polling - maybe this should be in the component
+    // Continually poll the backend for new information
     timer(1000, this.pollingInterval).subscribe(() => this.refresh())
   }
 
-  getDepartures(): Departure[] {
-    return this.departures;
+  getDepartures(): Promise<Departure[]> {
+    return Promise.resolve(this.departures.slice());
   }
 
-  getArrivals(): Arrival[] {
-    return this.arrivals;
+  getArrivals(): Promise<Arrival[]> {
+    return Promise.resolve(this.arrivals.slice());
   }
 
   refresh(): void {
@@ -80,34 +82,11 @@ export class MockFlightDetailsService implements FlightDetailsService {
     return Math.round(Math.random()*max);
   }
 
-
 }
 
 export interface FlightDetailsService {
 
-  getDepartures(): Departure[];
-  getArrivals(): Arrival[];
-  refresh(): void;
-
-}
-
-
-export class Arrival {
-
-  constructor(
-    public from: string,
-    public arrivalTime: DisplayableTime,
-    public gate: number
-  ) {}
-
-}
-
-export class Departure {
-
-  constructor(
-    public to: string,
-    public departureTime: DisplayableTime,
-    public gate: number
-  ) {}
+  getDepartures(): Promise<Departure[]>;
+  getArrivals(): Promise<Arrival[]>;
 
 }
