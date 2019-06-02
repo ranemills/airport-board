@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Departure } from '../models/departure';
 import { MockFlightDetailsService, FlightDetailsService } from '../flight-details.service';
-import { DisplayableTime } from '../models/displayable-time';
+import { timer } from 'rxjs';
 
 @Component({
   selector: 'app-departures',
@@ -9,6 +9,8 @@ import { DisplayableTime } from '../models/displayable-time';
   styleUrls: ['./departures.component.css']
 })
 export class DeparturesComponent implements OnInit {
+
+  private readonly pollingInterval = 5000; // 5 seconds
 
   departures: Departure[];
   flightDetailsService: FlightDetailsService;
@@ -21,7 +23,7 @@ export class DeparturesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.refreshDepartures();
+    timer(0, this.pollingInterval).subscribe(() => this.refreshDepartures())
   }
 
   refreshDepartures(): void {

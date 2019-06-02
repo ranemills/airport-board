@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { DisplayableTime } from './models/displayable-time';
 
-import {Arrival} from './models/arrival';
-import {Departure} from './models/departure';
+import { Arrival } from './models/arrival';
+import { Departure } from './models/departure';
 
-import {timer} from 'rxjs';
+import { timer } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -55,9 +55,9 @@ export class MockFlightDetailsService implements FlightDetailsService {
 
   private getRandomArrival(): Arrival {
     return new Arrival(
-      this.getRandomLocation(), 
-      this.getRandomTime(), 
-      this.getRandomInt(this.numGates)+1
+      this.getRandomLocation(),
+      this.getRandomTime(),
+      this.getRandomInt(this.numGates) + 1
     );
   }
 
@@ -65,12 +65,12 @@ export class MockFlightDetailsService implements FlightDetailsService {
     return new Departure(
       this.getRandomLocation(),
       this.getRandomTime(),
-      this.getRandomInt(this.numGates)+1
+      this.getRandomInt(this.numGates) + 1
     )
   }
 
   private getRandomLocation(): string {
-    const index:number = this.getRandomInt(this.destinations.length-1);
+    const index: number = this.getRandomInt(this.destinations.length - 1);
     return this.destinations[index];
   }
 
@@ -79,7 +79,7 @@ export class MockFlightDetailsService implements FlightDetailsService {
   }
 
   private getRandomInt(max: number): number {
-    return Math.round(Math.random()*max);
+    return Math.round(Math.random() * max);
   }
 
 }

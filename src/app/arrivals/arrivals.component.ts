@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Arrival } from '../models/arrival';
 import { MockFlightDetailsService, FlightDetailsService } from '../flight-details.service';
+import { timer } from 'rxjs';
 
 @Component({
   selector: 'app-arrivals',
@@ -9,18 +10,20 @@ import { MockFlightDetailsService, FlightDetailsService } from '../flight-detail
 })
 export class ArrivalsComponent implements OnInit {
 
+  private readonly pollingInterval = 5000; // 5 seconds
+
   arrivals: Arrival[];
   flightDetailsService: FlightDetailsService;
   lastUpdate: Date;
 
   constructor(
     private mockFlightDetailsService: MockFlightDetailsService
-  ) { 
+  ) {
     this.flightDetailsService = mockFlightDetailsService;
   }
 
   ngOnInit() {
-    this.refreshArrivals();
+    timer(0, this.pollingInterval).subscribe(() => this.refreshArrivals())
   }
 
   refreshArrivals(): void {
