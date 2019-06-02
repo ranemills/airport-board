@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Departure } from '../models/departure';
-import { MockFlightDetailsService, FlightDetailsService } from '../flight-details.service';
+import { MockFlightDetailsService, FlightDetailsService } from '../services/flight-details.service';
 import { timer } from 'rxjs';
 
 @Component({

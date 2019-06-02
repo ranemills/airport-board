@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { DisplayableTime } from './models/displayable-time';
+import { DisplayableTime } from '../models/displayable-time';
 
-import { Arrival } from './models/arrival';
-import { Departure } from './models/departure';
+import { Arrival } from '../models/arrival';
+import { Departure } from '../models/departure';
 
 import { timer } from 'rxjs';
 
