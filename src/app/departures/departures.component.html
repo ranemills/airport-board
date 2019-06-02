@@ -1,25 +1,31 @@
 <div class="card">
   <div class="card-header text-center">Departures</div>
-  
+
   <div class="card-body">
 
-      <table class="table">
-        <thead>
-          <tr>
+    <table class="table">
+      <thead>
+        <tr>
 
-            <th>Destination</th>
-            <th>Gate</th>
-            <th>Time of Arrival</th>
+          <th>Destination</th>
+          <th>Gate</th>
+          <th>Time of Departure</th>
 
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let departure of departures">
-            <td>{{departure.to}}</td>
-            <td>Gate {{departure.gate}}</td>
-            <td>{{departure.departureTime}}</td>
-          </tr>
-        </tbody>
-      </table>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let departure of departures">
+          <td>{{departure.to}}</td>
+          <td>Gate {{departure.gate}}</td>
+          <td>{{departure.departureTime}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card-footer">
+    <div class="row justify-content-end">
+      Last refreshed: {{ lastUpdate }}
     </div>
+  </div>
 </div>

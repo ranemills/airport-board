@@ -11,6 +11,7 @@ export class ArrivalsComponent implements OnInit {
 
   arrivals: Arrival[];
   flightDetailsService: FlightDetailsService;
+  lastUpdate: Date;
 
   constructor(
     private mockFlightDetailsService: MockFlightDetailsService
@@ -19,11 +20,14 @@ export class ArrivalsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getArrivals();
+    this.refreshArrivals();
   }
 
-  getArrivals(): void {
-    this.flightDetailsService.getArrivals().then((arrivals) => this.arrivals = arrivals);
+  refreshArrivals(): void {
+    this.flightDetailsService.getArrivals().then((arrivals) => {
+      this.arrivals = arrivals
+      this.lastUpdate = new Date();
+    });
   }
 
 }

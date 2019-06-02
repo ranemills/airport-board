@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Departure } from '../models/departure';
 import { MockFlightDetailsService, FlightDetailsService } from '../flight-details.service';
+import { DisplayableTime } from '../models/displayable-time';
 
 @Component({
   selector: 'app-departures',
@@ -11,6 +12,7 @@ export class DeparturesComponent implements OnInit {
 
   departures: Departure[];
   flightDetailsService: FlightDetailsService;
+  lastUpdate: Date;
 
   constructor(
     private mockFlightDetailsService: MockFlightDetailsService
@@ -25,6 +27,8 @@ export class DeparturesComponent implements OnInit {
   refreshDepartures(): void {
     this.flightDetailsService.getDepartures().then((departures) => {
       this.departures = departures
+
+      this.lastUpdate = new Date();
     });
   }
 
